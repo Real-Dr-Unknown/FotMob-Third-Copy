@@ -164,4 +164,15 @@ body {
     font-size: 10px;
 }
 
+.matchContainer {
+    width: 200px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    transition: background-color 0.3s ease;
+}
 
+.matchContainer:hover {
+    background-color: dodgerblue;
+    color: white;
+}

@@ -1,5 +1,6 @@
 matchess = [];
 matchesID = [];
+let i = 0;
 
 dateee = new Date().toISOString().split('T')[0].replace(/-/g, "");
 url = `https://lucky-lake-139b.devch-4522.workers.dev/?date=${dateee}`;
@@ -102,7 +103,14 @@ function blurData() {
         div.appendChild(leagueNamediv);
 
         league.matches.forEach(match => {
+
           let matchContainer = document.createElement("div");
+          matchContainer.id = match.id;
+          matchContainer.onclick = function () {
+            window.location.href = 'match.html?matchID=' + match.id;
+          }
+
+          matchContainer.className = 'matchContainer';
           matchContainer.style.width = '100%';
           matchContainer.style.height = '70px';
           matchContainer.style.display = 'flex';
@@ -119,6 +127,10 @@ function blurData() {
 
           let homeName = document.createElement("div");
           homeName.className = 'homeName';
+          console.log(window.innerWidth);
+          if (window.innerWidth > 700) {
+            homeName.style.fontSize = '14px';
+          }
           homeName.textContent = match.home.name;
 
           let homeLogo = document.createElement("div");
@@ -129,6 +141,7 @@ function blurData() {
 
           let timer = document.createElement("div");
           timer.className = 'timer';
+          timer.id = String(i);
           timer.textContent = match.status.utcTime.substring(11, 16);
 
           let awayLogo = document.createElement("div");
@@ -139,17 +152,29 @@ function blurData() {
 
           let awayName = document.createElement("div");
           awayName.className = 'awayName';
+          if (window.innerWidth > 700) {
+            awayName.style.fontSize = '14px';
+          }
           awayName.textContent = match.away.name;
 
           matchesID.push(match.id);
 
-          fetchMatchData(match.id, hLogo, aLogo);
+          // fetchMatchData(match.id, hLogo, aLogo);
 
           homeLogo.appendChild(hLogo);
           awayLogo.appendChild(aLogo);
 
           if (match.status.started && !match.status.finished) {
+            let livebtn = document.createElement("div");
+            livebtn.textContent = 'Live';
+            livebtn.className = 'liveButton';
             matchContainer.appendChild(livebtn);
+            timer.textContent = match.home.score + ' - ' + match.away.score;
+          }else if(match.status.finished){
+            timer.textContent = 'FT';
+            // timer.textContent = match.status.utcTime.substring(11, 16);
+          }else{
+            timer.textContent = match.status.utcTime.substring(11, 16);
           }
 
           matchContainer.appendChild(homeName);
@@ -157,6 +182,7 @@ function blurData() {
           matchContainer.appendChild(timer);
           matchContainer.appendChild(awayLogo);
           matchContainer.appendChild(awayName);
+          i++;
         });
       });
     })
