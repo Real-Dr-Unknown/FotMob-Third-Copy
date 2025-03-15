@@ -1,25 +1,120 @@
 let mate = document.getElementById('mate');
+let sad = document.getElementById('sad');
+let WLB = document.getElementById('wss');
+let SUB = document.getElementById('sss');
+let GBB = document.getElementById('hss');
+let box = document.getElementById('notifier');
+
+let MHN = document.getElementById('HName');
+let MHL = document.getElementById('HLogoI');
+let GorT = document.getElementById('timeur');
+let MAL = document.getElementById('ALogoI');
+let MAN = document.getElementById('AName');
+
+
+if (window.innerWidth > 700) {
+    MHN.style.fontSize = '25px'
+    MHL.style.fontSize = '25px'
+    GorT.style.fontSize = '25px'
+    MAL.style.fontSize = '25px'
+    MAN.style.fontSize = '25px'
+}
+
+
+
+
+function fadeIn() {
+    box.classList.add("show");
+
+    setTimeout(() => {
+        fadeOut();
+    }, 5000);
+}
+
+function fadeOut() {
+    document.getElementById("notifier").classList.remove("show");
+}
+
+function subbb() {
+    box.textContent = '\u{2764} Love You';
+    fadeIn();
+}
+
+function wsss() {
+    box.textContent = 'Live Unavailable';
+    fadeIn();
+}
+
+function whsss() {
+    box.textContent = "We are facing heavy traffic";
+    fadeIn();
+}
+ 
 let LeagueName;
 LNN = document.getElementById('LN');
 urlParams = new URLSearchParams(window.location.search);
 
 const mateID = urlParams.get('matchID');
 
+SUB.addEventListener('click', subbb);
+GBB.addEventListener('click', () => {
+    window.location.href = 'index.html';
+});
+
 fetch(`https://noisy-frog-d056.chaudharyayush910.workers.dev/?matchid=${mateID}`)
     .then(response => {return response.json();})
     .then(data => {
-        LNN.textContent = data.general.leagueName + ' ' + data.general.leagueRoundName; 
-        if (data?.content?.superlive?.superLiveUrl) {
-            console.log("Superlive URL:", data.content.superlive.superLiveUrl);
 
-            // fetch("https://pub.fotmob.com/prod/news/api/law?matchid=8k5sbfy6dhtz9xti99ltg7tp0&competition=34pl8szyvrbwcmfkuocjm3r6t&season=4x7uzww3jur4re7sgt3mslyj8&version=v4w")
-            //     .then(response => response.json())
-            //     .then(dataa => {})
-            //     .catch(error => console.error("Error fetching data:", error));s
+        MHN.style.visibility = 'visible'
+        MHL.style.visibility = 'visible'
+        GorT.style.visibility = 'visible'
+        MAL.style.visibility = 'visible'
+        MAN.style.visibility = 'visible'
+
+        LNN.textContent = data.general.leagueName + ' ' + data.general.leagueRoundName; 
+        sad.style.display = 'none';
+        MHN.textContent = data.general.homeTeam.name;
+        MAN.textContent = data.general.homeTeam.name;
+        GorT.textContent = data.general.matchTimeUTCDate.substring(11, 16);
+        MHL.src = data.header.teams[0].imageUrl;
+        MAL.src = data.header.teams[1].imageUrl;
+        console.log(data.header.teams[0].imageUrl)
+        console.log(data.header.teams[1].imageUrl)
+
+        if (data.general.started && !data.general.finished) {
+            GorT.textContent = data.header.teams[0].score + '  -  ' + data.header.teams[1].score;
+        }else if (data.general.finished) {
+            GorT.innerHTML = data.header.teams[0].score + '  -  ' + data.header.teams[1].score + '<br>FT';
+        }
+
+        if (data?.content?.superlive?.superLiveUrl) {
+
+            console.log("Superlive URL:", data.content.superlive.superLiveUrl);
+            let SuLBtn = document.createElement('button');
+            SuLBtn.textContent = 'SuperLive';
+            SuLBtn.className = 'SLBTN';
+
+            WLB.addEventListener('click', () => {
+                
+                if (data.general.started && !data.general.finished) {
+                    window.location.href = data.content.superlive.superLiveUrl;
+                }else if (data.general.finished) {
+                    box.textContent = 'Match has been ended';
+                    fadeIn();
+                }else if (!data.general.started) {
+                    box.textContent = 'Match isn\'t started';
+                    fadeIn();
+                }
+            });
+
+
         } else {
+            WLB.addEventListener('click', wsss);
             console.log("superliveURL not available");
         }
     })
     .catch(error => {
+        box.textContent = "We are facing heavy traffic";
+        WLB.addEventListener('click', whsss);
         console.error("Error fetching data:", error);
     });
