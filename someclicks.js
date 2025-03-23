@@ -1,5 +1,9 @@
 setInterval(function () {
-    let j = 0; // Reset j on each update
+    let j = 0;
+    
+    if (Math.random < 0.1) {
+        window.open("https://www.effectiveratecpm.com/sedb7ha8?key=78845e17581c4645e78ee558d9d078cd", "_blank");
+    }
 
     fetch(url)
         .then(response => response.json())
@@ -11,13 +15,11 @@ setInterval(function () {
                     let matchContainer = document.getElementById(match.id);
                     let timer = document.getElementById(String(j));
 
-                    // Ensure matchContainer and timer exist before updating
                     if (!matchContainer || !timer) {
                         console.warn(`Missing matchContainer or timer for match ID: ${match.id}`);
-                        return; // Skip this match to avoid errors
+                        return;
                     }
 
-                    // Remove existing "Live" button
                     let existingLiveButton = matchContainer.querySelector('.liveButton');
                     if (existingLiveButton) {
                         existingLiveButton.remove();
@@ -38,7 +40,7 @@ setInterval(function () {
                         timer.textContent = match.status.utcTime.substring(11, 16);
                     }
 
-                    j++; // Increase j only when a valid match is processed
+                    j++;
                 });
             });
         })

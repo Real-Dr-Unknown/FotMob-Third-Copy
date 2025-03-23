@@ -14,12 +14,26 @@ body {
     height: 80px;
 }
 
+.ads90 {
+    display: flex;
+    margin-top: 15px;
+    height: 90px;
+    width: 728px;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .brandName {
     color: white;
     padding: 0;
     margin-top: 27.5px;
     margin-left: 15px;
     font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 4%;
 }
 
 .tempLoader {

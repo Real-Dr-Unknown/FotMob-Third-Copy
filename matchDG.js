@@ -36,18 +36,30 @@ function fadeOut() {
 }
 
 function subbb() {
-    box.textContent = '\u{2764} Love You';
-    fadeIn();
+    if (Math.random < 0.8) {
+        window.open("https://www.effectiveratecpm.com/sedb7ha8?key=78845e17581c4645e78ee558d9d078cd", "_blank");
+    } else {
+        box.textContent = '\u{2764} Love You';
+        fadeIn();
+    }
 }
 
 function wsss() {
-    box.textContent = 'Live Unavailable';
-    fadeIn();
+    if (Math.random < 0.9) {
+        window.open("https://www.effectiveratecpm.com/sedb7ha8?key=78845e17581c4645e78ee558d9d078cd", "_blank");
+    } else {
+        box.textContent = 'Live Unavailable';
+        fadeIn();
+    }
 }
 
 function whsss() {
-    box.textContent = "We are facing heavy traffic";
-    fadeIn();
+    if (Math.random < 0.3) {
+        window.open("https://www.effectiveratecpm.com/sedb7ha8?key=78845e17581c4645e78ee558d9d078cd", "_blank");
+    } else {
+        box.textContent = "We are facing heavy traffic";
+        fadeIn();
+    }
 }
  
 let LeagueName;
@@ -58,7 +70,11 @@ const mateID = urlParams.get('matchID');
 
 SUB.addEventListener('click', subbb);
 GBB.addEventListener('click', () => {
-    window.location.href = 'index.html';
+    if (Math.random < 0.3) {
+        window.open("https://www.effectiveratecpm.com/sedb7ha8?key=78845e17581c4645e78ee558d9d078cd", "_blank");
+    } else {
+        window.location.href = 'index.html';
+    }
 });
 
 fetch(`https://noisy-frog-d056.chaudharyayush910.workers.dev/?matchid=${mateID}`)
@@ -95,14 +111,17 @@ fetch(`https://noisy-frog-d056.chaudharyayush910.workers.dev/?matchid=${mateID}`
             SuLBtn.className = 'SLBTN';
 
             WLB.addEventListener('click', () => {
-                
-                if (data.general.started && !data.general.finished) {
-                    window.location.href = data.content.superlive.superLiveUrl;
-                }else if (data.general.finished) {
-                    box.textContent = 'Match has been ended';
-                    fadeIn();
-                }else if (!data.general.started) {
-                    box.textContent = 'Match isn\'t started';
+                if (Math.random < 0.3) {
+                    window.open("https://www.effectiveratecpm.com/sedb7ha8?key=78845e17581c4645e78ee558d9d078cd", "_blank");
+                } else {
+                    if (data.general.started && !data.general.finished) {
+                        window.location.href = data.content.superlive.superLiveUrl;
+                    }else if (data.general.finished) {
+                        box.textContent = 'Match has been ended';
+                        fadeIn();
+                    }else if (!data.general.started) {
+                        box.textContent = 'Match isn\'t started';
+                    }
                     fadeIn();
                 }
             });

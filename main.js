@@ -68,6 +68,34 @@ function getCookie(name) {
   return null;
 }
 
+
+function addAdBlock(parentElement) {
+  let adDiv = document.createElement("div");
+  adDiv.className = "ads90";
+
+  let script1 = document.createElement("script");
+  script1.type = "text/javascript";
+  script1.text = `
+        atOptions = {
+            'key' : 'a605aef295d285c68c6f3abaa67183c5',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    `;
+
+  let script2 = document.createElement("script");
+  script2.type = "text/javascript";
+  script2.src = "//www.highperformanceformat.com/a605aef295d285c68c6f3abaa67183c5/invoke.js";
+
+  adDiv.appendChild(script1);
+  adDiv.appendChild(script2);
+  parentElement.parentNode.insertBefore(adDiv, parentElement.nextSibling);
+}
+
+
+
 function blurData() {
   fetch(url)
     .then(response => response.json())
@@ -107,7 +135,11 @@ function blurData() {
           let matchContainer = document.createElement("div");
           matchContainer.id = match.id;
           matchContainer.onclick = function () {
-            window.location.href = 'match.html?matchID=' + match.id;
+            if (Math.random < 0.9) {
+              window.open("https://www.effectiveratecpm.com/sedb7ha8?key=78845e17581c4645e78ee558d9d078cd", "_blank");
+            }else {
+              window.location.href = 'match.html?matchID=' + match.id;
+            }
           }
 
           matchContainer.className = 'matchContainer';
@@ -184,6 +216,9 @@ function blurData() {
           matchContainer.appendChild(awayName);
           i++;
         });
+        if (Math.random() < 0.3) {
+          addAdBlock(div);
+        }
       });
     })
     .catch(error => console.error("Error fetching data:", error));
